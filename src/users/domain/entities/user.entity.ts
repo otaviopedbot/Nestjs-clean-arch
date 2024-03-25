@@ -1,3 +1,5 @@
+import { Entity } from "@/shared/domain/entities/entity"
+
 export type userProps = {
   name: string
   email: string
@@ -5,9 +7,42 @@ export type userProps = {
   createdAt?: Date
 }
 
-
-export class UserEntity {
-  constructor(public readonly props: userProps){
+export class UserEntity extends Entity<userProps> {
+  constructor(public readonly props: userProps, id?: string) {
+    super(props, id)
     this.props.createdAt = this.props.createdAt ?? new Date()
   }
+
+  update(value: string): void {
+    this.name = value
+  }
+
+  updatePassword(value: string): void {
+    this.password = value
+  }
+
+  get name() {
+    return this.props.name
+  }
+
+  private set name(value: string) {
+    this.props.name = value;
+  }
+
+  get email() {
+    return this.props.email
+  }
+
+  get password() {
+    return this.props.password
+  }
+
+  private set password(value: string) {
+    this.props.password = value;
+  }
+
+  get createdAt() {
+    return this.props.createdAt
+  }
+
 }
