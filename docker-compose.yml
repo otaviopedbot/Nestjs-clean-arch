@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+
+  db:
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'library'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./mysql-db:/var/lib/mysql
+    networks:
+      - rede_node
+
+  nestapi:
+    container_name: node-nestjs
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/usr/app
+    networks:
+      - rede_node
+    depends_on:
+      - db
+
+volumes:
+  mysql-db:
+
+networks:
+  rede_node:
+    driver: bridge
