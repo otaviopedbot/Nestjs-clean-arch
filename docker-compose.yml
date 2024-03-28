@@ -31,6 +31,17 @@ services:
     depends_on:
       - db
 
+    phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_ARBITRARY: "1"
+    ports:
+      - "8080:80"
+    networks:
+      - rede_node
+
 volumes:
   mysql-db:
 
