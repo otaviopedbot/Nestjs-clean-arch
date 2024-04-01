@@ -25,13 +25,14 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./api:/usr/app
+      - ./:/usr/app
     networks:
       - rede_node
     depends_on:
       - db
+    command: bash -c "tail -f /dev/null"  # <- faz o container funcionar sem rodar nada
 
-    phpmyadmin:
+  phpmyadmin:
     image: phpmyadmin
     container_name: phpmyadmin
     environment:

@@ -1,10 +1,10 @@
 FROM node:18.17.1
 
-WORKDIR /usr/app
+COPY . .
 
 COPY package*.json ./
 
-COPY . .
+WORKDIR /usr/app
 
 EXPOSE 3000
 
