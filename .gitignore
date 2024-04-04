@@ -4,6 +4,7 @@
 /build
 /api
 /mysql-db
+/docker
 
 # Logs
 logs

@@ -3,19 +3,20 @@ version: "3.3"
 services:
 
   db:
-    container_name: mysql
-    image: mysql:5.7
+    container_name: postgres
+    build:
+      dockerfile: ./Dockerfile.postgresql
+      context: .
+    tty: true
     environment:
-      MYSQL_DATABASE: 'library'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      POSTGRES_PASSWORD: 'docker'
+      POSTGRES_DB: 'projectdb'
     ports:
-      - '3306:3306'
+      - '5432:5432'
     expose:
-      - '3306'
+      - '5432'
     volumes:
-      - ./mysql-db:/var/lib/mysql
+      - ./docker/dbdata:/var/lib/postgresql/data
     networks:
       - rede_node
 
@@ -36,15 +37,12 @@ services:
     image: phpmyadmin
     container_name: phpmyadmin
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: postgres
       PMA_ARBITRARY: "1"
     ports:
       - "8080:80"
     networks:
       - rede_node
-
-volumes:
-  mysql-db:
 
 networks:
   rede_node:
